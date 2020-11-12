@@ -1,0 +1,13 @@
+.text-align-center {
+    text-align: center;
+  }
+
+.video-radius {
+  border-radius: .3rem;
+  margin-bottom: 2rem;
+}
+
+.jumbotron {
+  background-color: #172548 !important;
+  color:white;
+}
