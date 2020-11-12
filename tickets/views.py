@@ -15,7 +15,11 @@ def inicio(request):
     queryset = Tickets.objects.all()
     total = Tickets.objects.count()
     tAmb = Tickets.objects.filter(idTipo=1).count()
-
+    tImp = Tickets.objects.filter(idTipo=2).count()
+    tSop = Tickets.objects.filter(idTipo=3).count()
+    tTel = Tickets.objects.filter(idTipo=4).count()
+    tDat = Tickets.objects.filter(idTipo=5).count()    
+    
     context = {
         "titulo" : titulo,
         "qry" : queryset,
