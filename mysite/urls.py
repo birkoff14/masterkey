@@ -24,6 +24,8 @@ urlpatterns = [
     path('tickets/', views.tickets, name = 'tickets'),
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
-    path('register', views.registro, name='registro'),
+    path('register', views.registro, name='register'),
     path('menu', views.menu, name='menu'),
+    path('mytickets', views.myTickets, name='mytickets'),
+    #path('accounts/', include('django.contrib.auth.urls')),
 ]

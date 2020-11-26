@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
@@ -17,9 +18,14 @@ class TipoSoporte(models.Model):
 
 
 class Tickets(models.Model):
-    idTicket = models.AutoField(primary_key=True)
-    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
-    idUsuario = models.CharField(max_length=2)
+    idTicket = models.AutoField(primary_key=True, verbose_name="Ticket")
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name="Fecha")
+    #timestamp = models.DateTimeField(default=timezone.now(), verbose_name="Fecha")
+    #idUsuario = models.CharField(max_length=2, verbose_name="Usuario")
+    idUsuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     #tipo = models.CharField(max_length=2)
-    idTipo = models.ForeignKey(TipoSoporte, on_delete=models.CASCADE, null=True)
-    descripcion = models.CharField(max_length=1000)
+    idTipo = models.ForeignKey(TipoSoporte, on_delete=models.CASCADE, null=True, verbose_name="Tipo")
+    descripcion = models.CharField(max_length=1000, verbose_name="Descripción")

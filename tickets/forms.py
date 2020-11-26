@@ -1,5 +1,6 @@
 from django import forms
 from .models import Tickets, TipoSoporte
+from django.contrib.auth.models import User
 
 class TicketsForm(forms.ModelForm):
 
@@ -14,6 +15,6 @@ class TicketsForm(forms.ModelForm):
         ('4', 'Ricardo'),
         ('5', 'Yampool'),
     )
-    idUsuario = forms.ChoiceField(label='Usuario', widget=forms.Select, choices=usuarios)
-    idTipo = forms.ModelChoiceField(queryset=TipoSoporte.objects.all())
+    idUsuario = forms.ModelChoiceField(label="Usuario", queryset=User.objects.all())
+    idTipo = forms.ModelChoiceField(label="Tipo", queryset=TipoSoporte.objects.all())
     descripcion = forms.CharField(label='Descripción', widget = forms.Textarea)

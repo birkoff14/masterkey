@@ -7,6 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login as do_login
 from django.contrib.auth import logout as do_logout
 
+from django.db.models import Count
+
 # Create your views here.
 
 def inicio(request):
@@ -16,18 +18,22 @@ def inicio(request):
     total = Tickets.objects.count()
     tAmb = Tickets.objects.filter(idTipo=1).count()
     tImp = Tickets.objects.filter(idTipo=2).count()
-    tSop = Tickets.objects.filter(idTipo=3).count()
-    tTel = Tickets.objects.filter(idTipo=4).count()
+    tTel = Tickets.objects.filter(idTipo=3).count()
+    tSop = Tickets.objects.filter(idTipo=4).count()
     tDat = Tickets.objects.filter(idTipo=5).count()    
     
     context = {
         "titulo" : titulo,
         "qry" : queryset,
         "total" : total,
-        "tAmb" : tAmb
+        "tAmb" : tAmb,
+        "tImp" : tImp,
+        "tTel" : tTel,
+        "tSop" : tSop,
+        "tDat" : tDat,
     }
 
-    print(queryset)
+    #print(queryset.query)
 
     return render(request, "inicio.html", context)
 
@@ -54,8 +60,7 @@ def tickets(request):
         }
         
         return render(request, "addTicket.html", context)
-
-    return redirect('/login')
+        return redirect('/menu')
 
 def menu(request):
     titulo = "Menú principal"
@@ -95,6 +100,39 @@ def registro(request):
             user = form.save()
 
             if user is not None:
-                do_login(request, user)
+                #do_login(request, user)
                 return redirect("/menu")
+
+    form.fields['username'].help_text = None
+    form.fields['password1'].help_text = None
+    form.fields['password2'].help_text = None
+    
     return render(request, "register.html", {"form" : form})
+
+def myTickets(request):
+    titulo = "Mis tickets"
+    user = request.user   
+
+    print("Mi user id es:",  user.id)
+
+    queryset = Tickets.objects.filter(idUsuario=user)
+    total = Tickets.objects.filter(idUsuario=user).count()
+    tAmb = Tickets.objects.filter(idTipo=1, idUsuario=user).count()
+    tImp = Tickets.objects.filter(idTipo=2, idUsuario=user).count()
+    tTel = Tickets.objects.filter(idTipo=3, idUsuario=user).count()
+    tSop = Tickets.objects.filter(idTipo=4, idUsuario=user).count()
+    tDat = Tickets.objects.filter(idTipo=5, idUsuario=user).count()
+
+    context = {
+        "titulo" : titulo,
+        "qry" : queryset,
+        "total" : total,
+        "tAmb" : tAmb,
+        "tImp" : tImp,
+        "tTel" : tTel,
+        "tSop" : tSop,
+        "tDat" : tDat,
+        "usr" : user,
+    }
+
+    return render(request, "myTickets.html", context)
