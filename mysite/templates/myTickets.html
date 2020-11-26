@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ titulo }}</h2>{{ usr }}
+<hr />
+
+<div class="row">
+<div class="btn-group" role="group" aria-label="Basic example">
+    <a class="btn btn-secondary" href="{% url 'tickets' %}" role="button">Agregar ticket</a>
+    <a class="btn btn-secondary" href="#" role="button">Cambiar password</a>
+    <a class="btn btn-secondary active" href="{% url 'mytickets' %}" role="button">Ver mis tickets</a>
+    {% if request.user.is_staff%}
+    <a class="btn btn-secondary" href="{% url 'register' %}" role="button">Agregar usuario</a>
+    {% endif %}
+  </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-8">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dt in qry %}
+                <tr>
+                    <td>{{ dt.idTicket }}</td>
+                    <td>{{ dt.timestamp }}</td>
+                    <td>{{dt.idUsuario}}</td>
+                    <td>{{ dt.idTipo }}</td>                        
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Tipo</th>                        
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-lg-4">
+        <!-- <div class="card" style="width: 22rem;"> -->
+            <div class="card">
+            <div class="card-header">
+              Tipo de tickets
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                  <button type="button" class="btn">
+                      Total de tickets <span class="badge badge-light">{{ total }}</span>
+                  </button>                      
+              </li>  
+              <li class="list-group-item">
+                <button type="button" class="btn">
+                    Ambientación <span class="badge badge-light">{{ tAmb }}</span>
+                </button>                      
+              </li>
+              <li class="list-group-item">
+                <button type="button" class="btn">
+                    Implementaciones <span class="badge badge-light">{{ tImp }}</span>
+                </button> 
+                  </li>
+              <li class="list-group-item">
+                <button type="button" class="btn">
+                    Soporte telefónico <span class="badge badge-light">{{ tTel }}</span>
+                </button>
+                  </li>
+              <li class="list-group-item">
+                <button type="button" class="btn">
+                    Soporte correo <span class="badge badge-light">{{ tSop }}</span>
+                </button>
+                  </li>
+                  <li class="list-group-item">
+                    <button type="button" class="btn">
+                        Folios Datasec+ <span class="badge badge-light">{{ tDat }}</span>
+                    </button>
+                      </li>
+            </ul>
+          </div>
+    </div>
+</div>
+{% endblock %}
