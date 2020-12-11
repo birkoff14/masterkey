@@ -50,6 +50,7 @@ def tickets(request):
             #idTipo = TipoSoporte.objects.get(idTipo = form.cleaned_data.get("idTipo"))
             desc = form.cleaned_data.get("descripcion")
             formulario.save()
+            return redirect('menu')
 
             #print(formulario)
             #print(formulario.timestamp)
@@ -60,7 +61,7 @@ def tickets(request):
         }
         
         return render(request, "addTicket.html", context)
-        return redirect('/menu')
+        
 
 def menu(request):
     titulo = "Menú principal"
