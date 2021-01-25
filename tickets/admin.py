@@ -8,3 +8,4 @@ admin.site.register(TipoSoporte)
 @admin.register(Tickets)
 class TicketsAdmin(admin.ModelAdmin):
     list_display = ('idTicket', 'timestamp', 'idUsuario', 'idTipo')
+    

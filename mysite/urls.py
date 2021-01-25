@@ -27,5 +27,7 @@ urlpatterns = [
     path('register', views.registro, name='register'),
     path('menu', views.menu, name='menu'),
     path('mytickets', views.myTickets, name='mytickets'),
+    path('detail/<int:pk>', views.ticketModal, name='detail'),
     #path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('pwa.urls'))
 ]

@@ -6,14 +6,18 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login as do_login
 from django.contrib.auth import logout as do_logout
+from django.contrib.auth.models import User
 
 from django.db.models import Count
+
+import sweetify
 
 # Create your views here.
 
 def inicio(request):
     titulo = "Tickets de hoy"
     
+    #usuario = User.objects.all()
     queryset = Tickets.objects.all()
     total = Tickets.objects.count()
     tAmb = Tickets.objects.filter(idTipo=1).count()
@@ -33,7 +37,7 @@ def inicio(request):
         "tDat" : tDat,
     }
 
-    #print(queryset.query)
+    print(queryset.query)
 
     return render(request, "inicio.html", context)
 
@@ -41,19 +45,16 @@ def tickets(request):
     if request.user.is_authenticated:
         titulo = "Registra tu ticket"
 
-        form = TicketsForm(request.POST or None)     
+        form = TicketsForm(request.POST or None)
 
         if form.is_valid():
             formulario = form.save(commit=False)
             idUsuario = form.cleaned_data.get("idUsuario")
-            idTipo = form.cleaned_data.get("idTipo")
-            #idTipo = TipoSoporte.objects.get(idTipo = form.cleaned_data.get("idTipo"))
+            idTipo = form.cleaned_data.get("idTipo")            
             desc = form.cleaned_data.get("descripcion")
             formulario.save()
-            return redirect('menu')
-
-            #print(formulario)
-            #print(formulario.timestamp)
+            sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
+            return redirect('mytickets')
 
         context = {
             "titulo" : titulo,
@@ -77,7 +78,7 @@ def menu(request):
 def login(request):
     form = AuthenticationForm()
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+        form = AuthenticationForm(data=request.POST)        
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -114,7 +115,7 @@ def myTickets(request):
     titulo = "Mis tickets"
     user = request.user   
 
-    print("Mi user id es:",  user.id)
+    #print("Mi user id es:",  user.id)
 
     queryset = Tickets.objects.filter(idUsuario=user)
     total = Tickets.objects.filter(idUsuario=user).count()
@@ -137,3 +138,19 @@ def myTickets(request):
     }
 
     return render(request, "myTickets.html", context)
+
+def ticketModal(request, pk):
+    
+    titulo = "Detalle del ticket"
+    query = Tickets.objects.get(idTicket=pk)
+    
+    #print(query)
+    
+    context = {
+        "titulo" : titulo,
+        "query" : query,
+    }
+    
+    return render(request, "modal.html", context)
+    
+    

@@ -15,6 +15,7 @@ class TicketsForm(forms.ModelForm):
         ('4', 'Ricardo'),
         ('5', 'Yampool'),
     )
-    idUsuario = forms.ModelChoiceField(label="Usuario", queryset=User.objects.all())
+    #idUsuario = forms.ModelChoiceField(label="Usuario", queryset=User.objects.all().values_list('id','first_name'))
+    idUsuario = forms.ModelChoiceField(label="Usuario", queryset=User.objects.all())    
     idTipo = forms.ModelChoiceField(label="Tipo", queryset=TipoSoporte.objects.all())
     descripcion = forms.CharField(label='Descripción', widget = forms.Textarea)
