@@ -53,6 +53,7 @@ def tickets(request):
             idTipo = form.cleaned_data.get("idTipo")            
             desc = form.cleaned_data.get("descripcion")
             formulario.save()
+            
             sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
             return redirect('mytickets')
 
@@ -153,4 +154,8 @@ def ticketModal(request, pk):
     
     return render(request, "modal.html", context)
     
+def test_view(request):
+    x = sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
+    print(x)
+    return redirect('/')
     

@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-sm-12 col-xs-12">
         <form method="POST" action="">{% csrf_token %}
-            <!--{{ frm|crispy }}-->
+            {{ form.media }}
             <div id="div_id_idUsuario" class="form-group"> 
               <label for="id_idUsuario" class=" requiredField">
                 Usuario<span class="asteriskField">*</span> </label> 
@@ -50,7 +50,7 @@
                   Descripción<span class="asteriskField">*</span> 
                 </label> <div class=""> 
                   <textarea name="descripcion" cols="40" rows="10" class="textarea form-control" required id="id_descripcion"></textarea> 
-                </div> </div>
+                </div> </div>                
             <input class='btn btn-primary' type ='submit' value='Enviar'>
         </form>
     </div>

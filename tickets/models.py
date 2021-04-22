@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -29,4 +30,5 @@ class Tickets(models.Model):
     )
     #tipo = models.CharField(max_length=2)
     idTipo = models.ForeignKey(TipoSoporte, on_delete=models.CASCADE, null=True, verbose_name="Tipo")
-    descripcion = models.CharField(max_length=1000, verbose_name="Descripción")
+    #descripcion = models.CharField(max_length=1000, verbose_name="Descripción")
+    descripcion = RichTextField(blank=True, null=True, verbose_name="Descripción")

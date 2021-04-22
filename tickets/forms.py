@@ -1,7 +1,8 @@
 from django import forms
 from .models import Tickets, TipoSoporte
 from django.contrib.auth.models import User
-
+from ckeditor.fields import RichTextField
+ 
 class TicketsForm(forms.ModelForm):
 
     class Meta:
@@ -18,4 +19,5 @@ class TicketsForm(forms.ModelForm):
     #idUsuario = forms.ModelChoiceField(label="Usuario", queryset=User.objects.all().values_list('id','first_name'))
     idUsuario = forms.ModelChoiceField(label="Usuario", queryset=User.objects.all())    
     idTipo = forms.ModelChoiceField(label="Tipo", queryset=TipoSoporte.objects.all())
-    descripcion = forms.CharField(label='Descripción', widget = forms.Textarea)
+    #descripcion = forms.CharField(label='Descripción', widget = forms.Textarea)
+    descripcion = RichTextField()
