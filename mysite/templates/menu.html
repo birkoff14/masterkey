@@ -16,6 +16,7 @@
   {% if request.user.is_staff%}
   <a class="btn btn-secondary" href="{% url 'register' %}" role="button">Agregar usuario</a>
   {% endif %}
+  <a class="btn btn-secondary" href="{% url 'stadistics' %}" role="button">Estadísticas</a>
 </div>
 
 {% endblock %}

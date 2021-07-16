@@ -27,6 +27,7 @@ class Tickets(models.Model):
     idUsuario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        verbose_name="Usuario",
     )
     #tipo = models.CharField(max_length=2)
     idTipo = models.ForeignKey(TipoSoporte, on_delete=models.CASCADE, null=True, verbose_name="Tipo")

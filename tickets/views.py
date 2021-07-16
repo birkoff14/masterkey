@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Tickets, TipoSoporte
 from .forms import TicketsForm
+from django.db.models import Sum
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -48,6 +49,7 @@ def tickets(request):
         form = TicketsForm(request.POST or None)
 
         if form.is_valid():
+            print("Si entra")
             formulario = form.save(commit=False)
             idUsuario = form.cleaned_data.get("idUsuario")
             idTipo = form.cleaned_data.get("idTipo")            
@@ -157,5 +159,27 @@ def ticketModal(request, pk):
 def test_view(request):
     x = sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
     print(x)
-    return redirect('/')
+    return redirect('/')    
     
+def stadistics(request):
+    titulo = "Estadísticas"
+    
+    
+    qry = Tickets.objects.raw("select 1 as id, month(timestamp) Mes, year(timestamp) Año, b.descripcion, "
+                              "count(1) Total "
+                              "FROM  tickets_tickets tt "
+                              "inner join tickets_tiposoporte b "
+                              "on tt.idTipo_id = b.idTipo "
+                              "where 1=1 and date(tt.timestamp) between '2020-11-01' and date(now()) "
+                              "group by month(timestamp), year(timestamp)")
+    
+    #qry = Tickets.objects.raw("select 1 Mes, 1 Año, 1 descripcion, ")
+        
+    print(qry.query)
+    
+    context = {
+        "titulo" : titulo,
+        "rpt" : qry,
+    }
+    
+    return render(request, "stadistics.html", context)

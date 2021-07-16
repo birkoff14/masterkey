@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}
+
 {% block content %}
 <h2>{{ titulo }}</h2>
 <hr />
@@ -13,6 +18,7 @@
     {% if request.user.is_staff%}
     <a class="btn btn-secondary" href="{% url 'register' %}" role="button">Agregar usuario</a>
     {% endif %}
+    <a class="btn btn-secondary" href="{% url 'stadistics' %}" role="button">Estadísticas</a>
   </div>
 </div>
   <br />

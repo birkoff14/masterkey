@@ -148,6 +148,8 @@ STATIC_URL = '/static/'
 #STATIC_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
 STATICFILES_DIRS = [
      os.path.join("mysite", "static"),
     #'/var/www/static/',

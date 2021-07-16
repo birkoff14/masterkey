@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ titulo }}</h2>{{ usr }}
+{{ rpt }}
+<hr />
+
+<div class="row">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn btn-secondary" href="{% url 'tickets' %}" role="button">Agregar ticket</a>
+        <a class="btn btn-secondary" href="#" role="button">Cambiar password</a>
+        <a class="btn btn-secondary" href="{% url 'mytickets' %}" role="button">Ver mis tickets</a>
+        {% if request.user.is_staff%}
+        <a class="btn btn-secondary" href="{% url 'register' %}" role="button">Agregar usuario</a>
+        {% endif %}
+        <a class="btn btn-secondary active" href="{% url 'stadistics' %}" role="button">Estadísticas</a>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-8">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Descripcion</th>
+                    <th>Cantidad</th>
+                    <th>
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z"/>
+                        </svg>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dt in rpt %}
+                <tr>
+                    <td>{{ dt.Mes }}</td>
+                    <td>{{ dt.Mes }}</td>
+                    <td>{{dt.Año }}</td>
+                    <td>{{ dt.descripcion }}</td>
+                    <td>{{ dt.Total }}</td>
+                    <td>                        
+                      sadas
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Descripcion</th>
+                    <th>Cantidad</th>
+                    <th>
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z"/>
+                        </svg>
+                    </th> 
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+{% endblock %}
