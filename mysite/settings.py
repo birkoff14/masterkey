@@ -150,6 +150,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 300,
+    },
+    'awesome_ckeditor': {
+        'toolbar': 'full',
+    },
+}
+
 STATICFILES_DIRS = [
      os.path.join("mysite", "static"),
     #'/var/www/static/',

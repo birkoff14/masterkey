@@ -1,7 +1,7 @@
 from django import forms
 from .models import Tickets, TipoSoporte
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
+from ckeditor.fields import RichTextField, CKEditorWidget
  
 class TicketsForm(forms.ModelForm):
 
@@ -20,4 +20,5 @@ class TicketsForm(forms.ModelForm):
     idUsuario = forms.ModelChoiceField(label="Usuario", queryset=User.objects.all())    
     idTipo = forms.ModelChoiceField(label="Tipo", queryset=TipoSoporte.objects.all())
     #descripcion = forms.CharField(label='Descripción', widget = forms.Textarea)
-    descripcion = RichTextField()
+    descripcion = forms.CharField(label='Descripción', widget = CKEditorWidget(config_name='awesome_ckeditor'))
+    #descripcion = RichTextField(config_name='awesome_ckeditor')    

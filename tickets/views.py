@@ -56,7 +56,7 @@ def tickets(request):
             desc = form.cleaned_data.get("descripcion")
             formulario.save()
             
-            sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
+            #sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
             return redirect('mytickets')
 
         context = {
